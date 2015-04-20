@@ -1,21 +1,17 @@
 package hanoi;
 
-import java.util.Stack;
-
 public class StartTower extends Tower{
-
-	public StartTower(int n) throws GeneralException {
-		dStack = new Stack<Disc>();
-		if (n < 0) {
-			throw new GeneralException("Initial disks on dStack can not be negitive");
+	
+	public String getName() {
+		return "Start";
+	}
+	
+	public void Stack(int n) throws GeneralException {
+		if (n < 0 || !dStack.isEmpty()) {
+			throw new GeneralException("When restacking, n must be positive, dstack must be empty");
 		}
 		for (int i = n; i > 0; i--) {
 			this.dStack.push(new Disc(i));
 		}
 	}
-	
-	public String getName() {
-		return "Start";
-	}
-
 }

@@ -4,6 +4,7 @@ import hanoi.Disc;
 import hanoi.Tower;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -42,10 +43,33 @@ public class GamePanel extends JPanel {
 		g2d.fillRect(80, 80, 20, 150);
 		g2d.fillRect(20, 210, 140, 20);
 
-		//draw selected disc
-		g2d.setPaint(dc);
-		if (MainForm.temp != null && tower.getName() == "Middle") {
-			g2d.fillRect(80 - (MainForm.temp.size() * 10), 20, MainForm.temp.size() * 20 + 20, 20);
+		//draw key text
+		if (tower.getName() == "Start") {
+			g2d.drawString("Press 1!", 70, 250);			
+		} else if (tower.getName() == "Middle") {			
+			g2d.drawString("Press 2!", 70, 250);			
+		} else {
+			g2d.drawString("Press 3!", 70, 250);						
+		}
+		
+		if (tower.getName() == "Start") {
+			g2d.drawString("Moves: " + MainForm.moves, 20, 20);
+			g2d.drawString("Press R to reset", 20, 40);
+			g2d.drawString("Press F1 for help", 20, 60);
+		} else if (tower.getName() == "Middle") {
+			if (MainForm.temp != null) {
+				g2d.setColor(MainForm.temp.getColour());
+				g2d.fillRect(80 - (MainForm.temp.size() * 10), 20, MainForm.temp.size() * 20 + 20, 20);
+				g2d.setPaint(dc);
+			}	else if (MainForm.finished) {
+				g2d.setPaint(new Color(255, 0, 0));
+			    Font font = new Font("Serif", Font.PLAIN, 40);
+			    g2d.setFont(font);
+				g2d.drawString("Yay! :D", 20, 50);
+				g2d.setPaint(dc);
+			}
+		}  else if (tower.getName() == "End") {
+			g2d.drawString("Top Score: " + MainForm.bestMoves, 100, 40);
 		}
 
 		//draw discs
@@ -59,12 +83,12 @@ public class GamePanel extends JPanel {
 			h = 20;
 
 			//draw disc
+			g2d.setPaint(d.getColour());
 			g2d.fillRect(x, y, w, h);
 
 			//draw disc outline (in white)
 			g2d.setPaint(new Color(225, 225, 225));
 			g2d.drawRect(x, y, w - 1, h - 1);
-			g2d.setPaint(dc);
 
 			dcount++;
 		}

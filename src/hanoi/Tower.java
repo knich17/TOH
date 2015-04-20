@@ -9,7 +9,7 @@ public abstract class Tower {
 		this.dStack = new Stack<Disc>();
 	}
 
-	public void clearDiscs() {
+	public void reset() throws GeneralException {
 		this.dStack.removeAllElements();
 	}
 

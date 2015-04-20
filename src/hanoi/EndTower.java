@@ -6,10 +6,6 @@ public class EndTower extends Tower{
 		super();
 	}
 	
-	public boolean isFin() {
-		return false;
-	}
-	
 	public String getName() {
 		return "End";
 	}
