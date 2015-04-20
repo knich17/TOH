@@ -12,6 +12,10 @@ import java.util.Stack;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Tower tower;
 	public static Color tc = new Color(0, 0, 0);
 	public static Color dc = new Color(255, 0, 0);
@@ -38,11 +42,13 @@ public class GamePanel extends JPanel {
 		g2d.fillRect(80, 80, 20, 150);
 		g2d.fillRect(20, 210, 140, 20);
 
+		//draw selected disc
 		g2d.setPaint(dc);
-		if (MainForm.temp != null && tower.equals(MainForm.towers[1])) {
+		if (MainForm.temp != null && tower.getName() == "Middle") {
 			g2d.fillRect(80 - (MainForm.temp.size() * 10), 20, MainForm.temp.size() * 20 + 20, 20);
 		}
 
+		//draw discs
 		Stack<Disc> dStack = tower.getDiscs();
 		int dcount = 1;
 		int x, y, w, h;
@@ -52,8 +58,10 @@ public class GamePanel extends JPanel {
 			w = d.size() * 20 + 20;
 			h = 20;
 
+			//draw disc
 			g2d.fillRect(x, y, w, h);
 
+			//draw disc outline (in white)
 			g2d.setPaint(new Color(225, 225, 225));
 			g2d.drawRect(x, y, w - 1, h - 1);
 			g2d.setPaint(dc);

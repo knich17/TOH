@@ -2,8 +2,8 @@ package hanoi;
 
 import java.util.Stack;
 
-public class Tower {
-	private Stack<Disc> dStack;
+public abstract class Tower {
+	protected Stack<Disc> dStack;
 
 	public Tower() {
 		this.dStack = new Stack<Disc>();
@@ -11,16 +11,6 @@ public class Tower {
 
 	public void clearDiscs() {
 		this.dStack.removeAllElements();
-	}
-
-	public void initDiscs(int n) throws GeneralException {
-		if (n < 0) {
-			throw new GeneralException(
-					"Initial disks on dStack can not be negitive");
-		}
-		for (int i = n; i > 0; i--) {
-			this.dStack.push(new Disc(i));
-		}
 	}
 
 	public Disc takeOffTop() throws GeneralException {
@@ -56,4 +46,6 @@ public class Tower {
 	public int getSize() {
 		return dStack.size();
 	}
+	
+	public abstract String getName();
 }
