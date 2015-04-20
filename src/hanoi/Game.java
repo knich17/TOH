@@ -1,18 +1,26 @@
 package hanoi;
 
-public class Game {
+import hanoiGui.MainForm;
 
-	public static void main(String[] args) {
-		// loop
+public class Game {
+	static Tower[] towers;
+
+	public static void main(String[] args) throws GeneralException {
+		initTowers();
+		MainForm mf = new MainForm();
+		// init main form (display towers)
 		// ask input for game size
-		// Initialize towers
-		// display towers
-		// loop
-		// get move input
+		// display discs
+		// listen for move input
 		// move towers
 		// display towers
-		// end if finished
-		// end if user doesn't want to play again
+	}
+
+	public static void initTowers() throws GeneralException {
+		towers = new Tower[3];
+		for (int i = 0; i < 3; i++) {
+			towers[i] = new Tower();
+		}
 	}
 
 }

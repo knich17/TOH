@@ -5,12 +5,19 @@ import java.util.Stack;
 public class Tower {
 	private Stack<Disc> dStack;
 
-	public Tower(int n) throws GeneralException {
+	public Tower() {
+		this.dStack = new Stack<Disc>();
+	}
+
+	public void clearDiscs() {
+		this.dStack.removeAllElements();
+	}
+
+	public void initDiscs(int n) throws GeneralException {
 		if (n < 0) {
 			throw new GeneralException(
 					"Initial disks on dStack can not be negitive");
 		}
-		this.dStack = new Stack<Disc>();
 		for (int i = n; i > 0; i--) {
 			this.dStack.push(new Disc(i));
 		}
@@ -21,6 +28,13 @@ public class Tower {
 			throw new GeneralException("Can not get the top of an empty Tower");
 		}
 		return this.dStack.pop();
+	}
+	
+	public Disc checkTop() throws GeneralException {
+		if (this.dStack.empty()) {
+			throw new GeneralException("Can not check the top of an empty Tower");
+		}
+		return this.dStack.peek();
 	}
 
 	public void putOnTop(Disc d) throws GeneralException {
@@ -37,5 +51,9 @@ public class Tower {
 
 	public Stack<Disc> getDiscs() {
 		return dStack;
+	}
+
+	public int getSize() {
+		return dStack.size();
 	}
 }
