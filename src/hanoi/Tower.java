@@ -47,5 +47,12 @@ public abstract class Tower {
 		return dStack.size();
 	}
 	
+	public boolean isEmpty() {
+		if (dStack.size() > 0) {
+			return false;
+		}
+		return true;
+	}
+	
 	public abstract String getName();
 }

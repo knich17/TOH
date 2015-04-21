@@ -8,9 +8,11 @@ import hanoi.StartTower;
 import hanoi.Tower;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class MainForm extends JFrame {
 	/**
@@ -30,6 +32,8 @@ public class MainForm extends JFrame {
 	static int moves = 0;
 	static int bestMoves = 0;
 	static boolean finished = false;
+	private static Timer timer;
+	public static ArrayList<String> moveList;
 
 	public static void main(String[] args) throws GeneralException {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -54,6 +58,7 @@ public class MainForm extends JFrame {
 	}
 
 	public MainForm() throws GeneralException {
+		timer = new Timer(300, new timerActionListener());
         initGamePanels();
         addKeyListener(new Controller());
         setFocusable(true);
@@ -117,8 +122,35 @@ public class MainForm extends JFrame {
 		}
 	}
 	
+	public static void solve() throws GeneralException {
+		reset();
+		if (discNumber >= 3) {
+			moveList = new ArrayList<String>();
+			moveStack(t1, t3, t2, t1.getSize());
+			reset();
+		}
+	}
+	
+	public static void moveStack(Tower t, Tower target, Tower ot, int noDiscs) throws GeneralException {
+		if (noDiscs == 1) {
+			moveList.add(t.getName());
+			moveList.add(target.getName());
+			moveTop(t, target);
+			
+		} else {
+			moveStack(t, ot, target, noDiscs-1);
+			moveStack(t, target, ot, 1);
+			moveStack(ot, target, t, noDiscs-1);			
+		}
+	}
+	
+	public static void moveTop(Tower ta, Tower tb) throws GeneralException {
+		firstMove(ta);
+		secondMove(tb);
+	}
+	
 	private static void firstMove(Tower tower) throws GeneralException {
-		if (tower.getSize() > 0) {
+		if (!tower.isEmpty()) {
 			temp = tower.takeOffTop();
 			rePaint();
 		} else {alert();}
@@ -142,14 +174,14 @@ public class MainForm extends JFrame {
 				, "Instructions", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
-	private static void rePaint() {
+	public static void rePaint() {
 		gp1.repaint();
 		gp2.repaint();
 		gp3.repaint();	
 	}
 
 	public static void checkFinish() {
-		if (t1.getSize() == 0 && t2.getSize() == 0 && temp == null) {
+		if (t1.isEmpty() && t2.isEmpty() && temp == null) {
 			finished = true;
 			if (moves < bestMoves) {
 				JOptionPane.showMessageDialog(mf, "Congratulations!\n" + "Your score of " + moves + " beat the old highscore of "
@@ -177,6 +209,15 @@ public class MainForm extends JFrame {
 	public static void changeDifficulty() throws GeneralException {
 		getDiscNumber();
 		reset();
+		moveList.clear();
 		bestMoves = 0;
+	}
+
+	public static void startTimer() {
+		timer.start();
+	}
+
+	public static void stopTimer() {
+		timer.stop();
 	}
 }

@@ -18,6 +18,15 @@ public class Controller implements KeyListener {
 			towNo = 3;
 		} else if (e.getKeyCode() == KeyEvent.VK_F1) {
 			MainForm.showHelp();
+		} else if (e.getKeyCode() == KeyEvent.VK_A) {
+		} else if (e.getKeyCode() == KeyEvent.VK_S) {
+			try {
+				MainForm.solve();
+				MainForm.startTimer();
+			} catch (GeneralException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		} else if (e.getKeyCode() == KeyEvent.VK_D) {
 			try {
 				MainForm.changeDifficulty();
